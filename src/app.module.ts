@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import typeORMConfig from './configs/typeorm.config';
+import typeORMConfig from './configs/typeorm.config.';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
+import { DataSource } from 'typeorm';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -13,8 +15,11 @@ import { UserModule } from './user/user.module';
     }),
     TypeOrmModule.forRoot(typeORMConfig),
     UserModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private datasource: DataSource) {}
+}
