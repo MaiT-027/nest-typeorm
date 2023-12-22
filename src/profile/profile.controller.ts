@@ -23,11 +23,6 @@ export class ProfileController {
     return this.profileService.create(userId, createProfileDto);
   }
 
-  @Get()
-  findAll() {
-    return this.profileService.findAll();
-  }
-
   @Get(':id')
   findOne(@Param('id') userId: string) {
     return this.profileService.findOne(+userId);

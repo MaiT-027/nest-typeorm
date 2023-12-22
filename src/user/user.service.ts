@@ -17,8 +17,9 @@ export class UserService {
     return this.userRepository.find({ relations: ['post'] });
   }
 
-  findOne(id: number) {
-    return this.userRepository.findOneByOrFail({ id });
+  async findOne(id: number) {
+    const user = await this.userRepository.findOneByOrFail({ id });
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

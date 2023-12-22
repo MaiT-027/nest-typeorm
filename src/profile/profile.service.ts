@@ -20,13 +20,9 @@ export class ProfileService {
     return this.profileRepository.save(createdProfile);
   }
 
-  findAll() {
-    return this.profileRepository.find();
-  }
-
   async findOne(userId: number) {
     const user = await this.userService.findOne(userId);
-    return this.profileRepository.findOneByOrFail({ user });
+    return this.profileRepository.findOneBy({ user });
   }
 
   async update(userId: number, updateProfileDto: UpdateProfileDto) {
