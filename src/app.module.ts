@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { DataSource } from 'typeorm';
 import { PostModule } from './post/post.module';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PostModule } from './post/post.module';
     TypeOrmModule.forRoot(typeORMConfig),
     UserModule,
     PostModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

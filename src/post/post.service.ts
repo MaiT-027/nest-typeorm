@@ -13,7 +13,11 @@ export class PostService {
 
   async create(userId: number, createPostDto: CreatePostDto) {
     const user = await this.userService.findOne(userId);
-    return this.postRepository.save({ ...createPostDto, user });
+    const createdPost = this.postRepository.create({
+      ...createPostDto,
+      user,
+    });
+    return this.postRepository.save(createdPost);
   }
 
   findAll() {
