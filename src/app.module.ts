@@ -5,7 +5,6 @@ import typeORMConfig from './configs/typeorm.config.';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
-import { DataSource } from 'typeorm';
 import { PostModule } from './post/post.module';
 import { ProfileModule } from './profile/profile.module';
 
@@ -23,5 +22,5 @@ import { ProfileModule } from './profile/profile.module';
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private datasource: DataSource) {}
+  constructor() {}
 }

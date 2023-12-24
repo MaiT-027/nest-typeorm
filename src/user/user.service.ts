@@ -8,18 +8,22 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UserService {
   @InjectRepository(User) userRepository: Repository<User>;
+
   create(createUserDto: CreateUserDto) {
     const createdUser = this.userRepository.create(createUserDto);
     return this.userRepository.save(createdUser);
   }
 
   findAll() {
-    return this.userRepository.find({ relations: ['post'] });
+    return this.userRepository.find({
+      relations: {
+        profile: true,
+      },
+    });
   }
 
-  async findOne(id: number) {
-    const user = await this.userRepository.findOneByOrFail({ id });
-    return user;
+  findOne(id: number) {
+    return this.userRepository.findOneByOrFail({ id });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

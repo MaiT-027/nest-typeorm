@@ -15,13 +15,17 @@ export class PostService {
     const user = await this.userService.findOne(userId);
     const createdPost = this.postRepository.create({
       ...createPostDto,
-      user,
+      author: user,
     });
     return this.postRepository.save(createdPost);
   }
 
   findAll() {
-    return this.postRepository.find({ relations: ['user'] });
+    return this.postRepository.find({
+      relations: {
+        author: true,
+      },
+    });
   }
 
   findOne(id: number) {

@@ -17,7 +17,7 @@ export class User {
   @Column()
   name: string;
 
-  @OneToMany(() => Post, (post) => post.user, { cascade: true })
+  @OneToMany(() => Post, (post) => post.author, { cascade: true })
   @JoinColumn()
   post: Post[];
 

@@ -13,5 +13,5 @@ export class Post {
   content: string;
 
   @ManyToOne(() => User, (user) => user.post)
-  user: User;
+  author: User;
 }

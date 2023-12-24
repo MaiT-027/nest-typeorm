@@ -20,6 +20,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     switch (exception.constructor) {
       case HttpException: // for HttpException
         status = (exception as HttpException).getStatus();
+        message = (exception as HttpException).message;
         break;
 
       case EntityNotFoundError: // for TypeOrm error
@@ -29,6 +30,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
       default: // default
         status = HttpStatus.INTERNAL_SERVER_ERROR;
+        message = (exception as any).message;
     }
     response.status(status).json({
       statusCode: status,
@@ -36,5 +38,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       timestamp: new Date().toISOString(),
       path: request.url,
     });
+    console.log(exception);
   }
 }

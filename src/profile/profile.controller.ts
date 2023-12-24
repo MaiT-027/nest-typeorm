@@ -24,20 +24,20 @@ export class ProfileController {
   }
 
   @Get(':id')
-  findOne(@Param('id') userId: string) {
+  findOne(@Param('id') userId: number) {
     return this.profileService.findOne(+userId);
   }
 
   @Patch(':id')
   update(
-    @Param('id') userId: string,
+    @Param('id') userId: number,
     @Body() updateProfileDto: UpdateProfileDto,
   ) {
     return this.profileService.update(+userId, updateProfileDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') userId: string) {
-    return this.profileService.remove(+userId);
+  remove(@Param('id') userId: number) {
+    return this.profileService.remove(userId);
   }
 }
