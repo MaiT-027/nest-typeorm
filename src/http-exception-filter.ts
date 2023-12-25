@@ -14,16 +14,19 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
-    let status = HttpStatus.INTERNAL_SERVER_ERROR;
-    let message = (exception as any).message.message;
+    let status: number;
+    let message: string;
 
-    switch (exception.constructor) {
-      case HttpException: // for HttpException
-        status = (exception as HttpException).getStatus();
-        message = (exception as HttpException).message;
+    switch (true) {
+      case exception instanceof HttpException: // for HttpException
+        status = exception.getStatus();
+        const response = exception.getResponse();
+        if (typeof response !== 'string') {
+          message = response['message'];
+        } else message = response;
         break;
 
-      case EntityNotFoundError: // for TypeOrm error
+      case exception instanceof EntityNotFoundError: // for TypeOrm error
         status = HttpStatus.NOT_FOUND;
         message = (exception as EntityNotFoundError).message;
         break;
@@ -38,6 +41,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       timestamp: new Date().toISOString(),
       path: request.url,
     });
-    console.log(exception);
+    console.error(exception);
   }
 }
