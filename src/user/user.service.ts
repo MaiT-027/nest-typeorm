@@ -14,16 +14,18 @@ export class UserService {
     return this.userRepository.save(createdUser);
   }
 
-  findAll() {
-    return this.userRepository.find({
+  async findAll() {
+    const users = await this.userRepository.find({
       relations: {
         profile: true,
       },
     });
+    return users;
   }
 
-  findOne(id: number) {
-    return this.userRepository.findOneByOrFail({ id });
+  async findOne(id: number) {
+    const user = await this.userRepository.findOneByOrFail({ id });
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
